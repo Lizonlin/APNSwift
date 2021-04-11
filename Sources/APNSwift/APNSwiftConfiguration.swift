@@ -176,9 +176,9 @@ public struct APNSwiftConfiguration {
     public var url: URL {
         switch environment {
         case .production:
-            return preferredUrl ?? URL(string: "https://api.push.apple.com")!
+            return URL(string: preferredUrl ?? "https://api.push.apple.com")!
         case .sandbox:
-            return preferredUrl ?? URL(string: "https://api.development.push.apple.com")!
+            return URL(string: preferredUrl ?? "https://api.development.push.apple.com")!
         }
     }
 
