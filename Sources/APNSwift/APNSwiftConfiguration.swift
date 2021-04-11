@@ -171,12 +171,16 @@ public struct APNSwiftConfiguration {
     /// Optional timeout time if the connection does not receive a response.
     public var timeout: TimeAmount? = nil
 
+    public var endpoint_sandbox: String?
+    
+    public var endpoint: String?
+    
     public var url: URL {
         switch environment {
         case .production:
-            return URL(string: "https://api.push.apple.com")!
+            return endpoint ?? URL(string: "https://api.push.apple.com")!
         case .sandbox:
-            return URL(string: "https://api.development.push.apple.com")!
+            return endpoint_sandbox ?? URL(string: "https://api.development.push.apple.com")!
         }
     }
 
