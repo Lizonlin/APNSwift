@@ -170,17 +170,15 @@ public struct APNSwiftConfiguration {
     internal var logger: Logger?
     /// Optional timeout time if the connection does not receive a response.
     public var timeout: TimeAmount? = nil
-
-    public var endpoint_sandbox: String?
     
-    public var endpoint: String?
+    public var preferredUrl: String?
     
     public var url: URL {
         switch environment {
         case .production:
-            return endpoint ?? URL(string: "https://api.push.apple.com")!
+            return preferredUrl ?? URL(string: "https://api.push.apple.com")!
         case .sandbox:
-            return endpoint_sandbox ?? URL(string: "https://api.development.push.apple.com")!
+            return preferredUrl ?? URL(string: "https://api.development.push.apple.com")!
         }
     }
 
@@ -203,11 +201,13 @@ public struct APNSwiftConfiguration {
         authenticationMethod: AuthenticationMethod,
         topic: String,
         environment: APNSwiftConfiguration.Environment,
+        preferredUrl: String? = nil,
         logger: Logger? = nil,
         timeout: TimeAmount? = nil
     ) {
         self.topic = topic
         self.authenticationMethod = authenticationMethod
+        self.preferredUrl = preferredUrl
         self.environment = environment
         if var logger = logger {
             logger[metadataKey: "origin"] = "APNSwift"
